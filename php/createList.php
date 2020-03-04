@@ -1,10 +1,19 @@
-<?php //Starts the database connection.
-include __DIR__ . '\php\connectToDB.php';
+<?php
+if (isset($_POST['list_name'])) {
+    echo createList();
+}
+function createList()
+{
+    include 'connectToDB.php';
 
-$sql = "SELECT * FROM `lists`";
-$query = $conn->prepare($sql);
-$query->execute();
-$result = $query->fetchAll();
+    $stmt = $conn->prepare("INSERT INTO lists (list_name) VALUES (:list_name)");
+    $stmt->bindParam(':list_name', $list_name);
+
+    $list_name = $_POST["list_name"];
+    $stmt->execute();
+
+    header("location:../index.php");
+};
 ?>
 
 <!DOCTYPE html>
@@ -22,31 +31,14 @@ $result = $query->fetchAll();
 
 <body>
     <div class="container">
-        <h1>To-Do List</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Lijst</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($result as $row) {
-                ?>
-
-                    <tr>
-                        <td><?php echo $row['list_name'] ?></td>
-                        <td class="text-right"><a class="btn btn-success" href="">Lijst openen</td>
-                    </tr>
-                <?php } ?>
-                <tr>
-                </tr>
-            </tbody>
-        </table>
-        <div class="col-12 text-center">
-            <a class="btn btn-primary text-white" href="php\createList.php">Nieuwe lijst aanmaken</a>
-        </div>
+        <h1>Nieuwe lijst aanmaken</h1>
+        <form action="createList" method="POST">
+            <div class="form-group">
+                <label for="list_name">Lijstnaam</label>
+                <input type="text" class="form-control" name="list_name" placeholder="Voer hier uw lijstnaam in" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Lijst aanmaken</button>
+        </form>
     </div>
 </body>
 
