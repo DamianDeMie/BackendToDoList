@@ -7,9 +7,7 @@ function createList()
     include 'connectToDB.php';
 
     $stmt = $conn->prepare("INSERT INTO lists (list_name) VALUES (:list_name)");
-    $stmt->bindParam(':list_name', $list_name);
-
-    $list_name = $_POST["list_name"];
+    $stmt->bindParam(':list_name', $_POST['list_name'], PDO::PARAM_STR);
     $stmt->execute();
 
     header("location:../index.php");
