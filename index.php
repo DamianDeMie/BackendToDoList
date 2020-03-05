@@ -2,9 +2,9 @@
 include __DIR__ . '\php\connectToDB.php';
 
 
-$query = $conn->prepare("SELECT * FROM `lists`");
-$query->execute();
-$result = $query->fetchAll();
+$stmt = $conn->prepare("SELECT * FROM `lists`");
+$stmt->execute();
+$result = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
