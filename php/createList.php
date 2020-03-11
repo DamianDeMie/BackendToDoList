@@ -1,11 +1,11 @@
 <?php
+
 if (isset($_POST['list_name'])) {
     echo createList();
 }
 function createList()
 {
     include 'connectToDB.php';
-
     $stmt = $conn->prepare("INSERT INTO lists (list_name) VALUES (:list_name)");
     $stmt->bindParam(':list_name', $_POST['list_name'], PDO::PARAM_STR);
     $stmt->execute();
