@@ -23,7 +23,6 @@ function createTask()
     header("location:showList.php?id=" .  $_POST['list_id']);
 };
 ?>
-?>
 
 <!DOCTYPE html>
 <html lang="en">
