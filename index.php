@@ -42,7 +42,8 @@ $result = $stmt->fetchAll();
                             <a class="btn btn-success" href='php/showlist.php?id=<?php echo $row['list_id'] ?>'>
                                 <i class="far fa-folder-open"></i>
                             </a>
-                            <a class="btn btn-warning" href=' php/updateList.php?id=<?php echo $row['list_id'] ?>'> <i class=" far fa-edit"></i>
+                            <a class="btn btn-warning" href=' php/updateList.php?id=<?php echo $row['list_id'] ?>'>
+                                <i class=" far fa-edit"></i>
                             </a>
                             <a class="btn btn-danger" href=' php/deletelist.php?id=<?php echo $row['list_id'] ?>'>
                                 <i class="fas fa-trash-alt"></i>

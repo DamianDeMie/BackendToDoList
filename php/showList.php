@@ -40,7 +40,24 @@ $result2 = $stmt2->fetchAll();
                 </tr>
             </thead>
             <tbody>
+                <?php
+                foreach ($result2 as $row) {
+                ?>
 
+                    <tr>
+                        <td><?php echo $row['task_name'] ?></td>
+                        <td class="text-right">
+                            <a class="btn btn-warning" href=' php/updateList.php?id=<?php echo $row['list_id'] ?>'>
+                                <i class=" far fa-edit"></i>
+                            </a>
+                            <a class="btn btn-danger" href=' php/deletelist.php?id=<?php echo $row['list_id'] ?>'>
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                <tr>
+                </tr>
             </tbody>
         </table>
         <div class="col-12 text-center">

@@ -7,7 +7,22 @@ $stmt->bindParam(':list_id', $_GET['list_id'], PDO::PARAM_INT);
 $stmt->execute();
 
 $result = $stmt->fetch();
+if (isset($_POST['task_name'])) {
+    echo createTask();
+}
+function createTask()
+{
+    include 'connectToDB.php';
+    $stmt = $conn->prepare("INSERT INTO tasks (task_name, list_id, task_time, task_status) VALUES (:task_name, :list_id, :task_time, :task_status)");
+    $stmt->bindParam(':task_name', $_POST['task_name'], PDO::PARAM_STR);
+    $stmt->bindParam(':list_id', $_POST['list_id'], PDO::PARAM_INT);
+    $stmt->bindParam(':task_time', $_POST['task_time'], PDO::PARAM_STR);
+    $stmt->bindParam(':task_status', $_POST['task_status'], PDO::PARAM_STR);
+    $stmt->execute();
 
+    header("location:showList.php?id=" .  $_POST['list_id']);
+};
+?>
 ?>
 
 <!DOCTYPE html>
@@ -26,16 +41,26 @@ $result = $stmt->fetch();
 <body>
     <div class="container">
         <h1>Taak toevoegen aan lijst "<?php echo $result['list_name'] ?>"</h1>
-        <form action="createList" method="POST">
+        <form action="createTask" method="POST">
+            <input type="hidden" id="list_id" name="list_id" value="<?php echo $result['list_id'] ?>">
             <div class="form-group">
                 <label for="task_name">Taak beschrijving: </label>
                 <input type="text" class="form-control" name="task_name" placeholder="Voer hier uw taakbeschrijving in" required>
                 <small id="tasknameHelp" class="form-text text-muted">Een voorbeeld is: "Boodschappen doen"</small>
             </div>
             <div class="form-group">
-                <label for="task_time">Tijd benodigd:</label>
-                <input type="time" class="form-control" name="task_time" required>
-            </div> <button type="submit" class="btn btn-primary">Lijst aanmaken</button>
+                <label for="task_time">Tijd benodigd (in minuten):</label>
+                <input type="number" class="form-control" name="task_time" max="1440" required>
+            </div>
+            <div class="form-group">
+                <label for="task_status">Status van de taak</label>
+                <select class="form-control" name="task_status" id="task_status" required>
+                    <option>Nog niet begonnen</option>
+                    <option>Bezig</option>
+                    <option>Afgemaakt</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Taak toevoegen aan lijst</button>
         </form>
     </div>
 </body>
