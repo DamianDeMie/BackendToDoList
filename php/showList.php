@@ -47,10 +47,10 @@ $result2 = $stmt2->fetchAll();
                     <tr>
                         <td><?php echo $row['task_name'] ?></td>
                         <td class="text-right">
-                            <a class="btn btn-warning" href=' php/updateList.php?id=<?php echo $row['list_id'] ?>'>
+                            <a class="btn btn-warning" href='updateTask.php?id=<?php echo $row['task_id'] ?>'>
                                 <i class=" far fa-edit"></i>
                             </a>
-                            <a class="btn btn-danger" href=' php/deletelist.php?id=<?php echo $row['list_id'] ?>'>
+                            <a class="btn btn-danger" href='deleteTask.php?id=<?php echo $row['task_id'] ?>?>'>
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
