@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `list_id` int(11) NOT NULL,
   `task_name` varchar(255) NOT NULL,
   `task_status` varchar(255) NOT NULL,
-  `task_time` varchar(50) NOT NULL,
+  `task_time` int(11) NOT NULL,
   PRIMARY KEY (`task_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 COMMIT;
