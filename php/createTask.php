@@ -1,18 +1,23 @@
-<?php //Starts the database connection.
+<?php
+//Starts the database connection.
+
 require __DIR__ . '\connectToDB.php';
 
-
+//Prepares and executes the statement getting the ID of the list you are currently in.
 $stmt = $conn->prepare("SELECT * FROM lists WHERE list_id=:list_id");
 $stmt->bindParam(':list_id', $_GET['list_id'], PDO::PARAM_INT);
 $stmt->execute();
 
 $result = $stmt->fetch();
+//Checks if there is anything in the POST for the property task_name, if so executes the createTask function.
 if (isset($_POST['task_name'])) {
     echo createTask();
 }
 function createTask()
 {
-    include 'connectToDB.php';
+    //Starts the database connection.
+    require __DIR__ . '\connectToDB.php';
+    //Prepares the statement to create the tasks, it then binds the parameters using PDO compliance and then redirects back to the list page.
     $stmt = $conn->prepare("INSERT INTO tasks (task_name, list_id, task_time, task_status) VALUES (:task_name, :list_id, :task_time, :task_status)");
     $stmt->bindParam(':task_name', $_POST['task_name'], PDO::PARAM_STR);
     $stmt->bindParam(':list_id', $_POST['list_id'], PDO::PARAM_INT);

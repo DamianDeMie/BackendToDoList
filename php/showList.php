@@ -1,13 +1,15 @@
 <?php //Starts the database connection.
 require __DIR__ . '\connectToDB.php';
 
-
+//Prepares and executes the statement getting the ID of the list you are currently in.
 $stmt = $conn->prepare("SELECT `list_id`, `list_name` FROM `lists` WHERE `list_id` = :list_id");
 $stmt->bindParam(':list_id', $_GET['id'], PDO::PARAM_INT);
 $stmt->execute();
 
 $result = $stmt->fetch();
 
+
+//Prepares and executes the statement fetching all the tasks that are linked to the above List ID.
 $stmt2 = $conn->prepare("SELECT * FROM tasks WHERE list_id = :list_id");
 $stmt2->bindParam(':list_id', $_GET['id'], PDO::PARAM_INT);
 $stmt2->execute();
@@ -43,15 +45,19 @@ $result2 = $stmt2->fetchAll();
             <thead>
                 <tr>
                     <th scope="col">Taken</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Duur in minuten</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <?php
+                <?php //Puts all the tasks in a table with a foreach loop.
                 foreach ($result2 as $row) {
                 ?>
                     <tr class="tasksTable <?php echo $row['task_status'] ?>">
                         <td><?php echo $row['task_name'] ?></td>
+                        <td><?php echo $row['task_status'] ?></td>
+                        <td><?php echo $row['task_time'] ?></td>
                         <td class="text-right">
                             <a class="btn btn-warning" href='updateTask.php?id=<?php echo $row['task_id'] ?>'>
                                 <i class=" far fa-edit"></i>
@@ -71,5 +77,27 @@ $result2 = $stmt2->fetchAll();
         </div>
     </div>
 </body>
+
+<script>
+    function filterTasks(taskStatus) {
+        //These two constants gets the elements from the page and makes them available to be used.
+        const taskRows = document.getElementsByClassName('tasksTable');
+        const statusRow = document.getElementsByClassName(taskStatus);
+
+        //Gets all the tasks through a loop, and checks if they're matched or not. If they aren't matched they show all if you select the 'ALles' option, otherwise it hides that particular category.
+        for (var unmatchedTasks = 0; unmatchedTasks < taskRows.length; unmatchedTasks++) {
+            if (taskStatus == 'Alles') {
+                taskRows[unmatchedTasks].style.display = 'table-row';
+            } else {
+                taskRows[unmatchedTasks].style.display = 'none';
+            }
+        }
+
+        //Shows the tasks that are matched to the criteria of your filter.
+        for (var matchedTasks = 0; matchedTasks < statusRow.length; matchedTasks++) {
+            statusRow[matchedTasks].style.display = 'table-row'
+        }
+    }
+</script>
 
 </html>

@@ -1,18 +1,26 @@
 <?php
-include 'connectToDB.php';
+//Starts the database connection.
 
-$stmt = $conn->prepare("SELECT list_id, list_name FROM lists WHERE list_id=:list_id");
+require __DIR__ . '\connectToDB.php';
+
+//Prepares and executes the statement getting the ID of the list you are currently in.
+$stmt = $conn->prepare("SELECT * FROM lists WHERE list_id=:list_id");
 $stmt->bindParam(':list_id', $_GET['id'], PDO::PARAM_INT);
 $stmt->execute();
 
 $result = $stmt->fetch();
+
+//Checks if there is anything in the POST for the property list_name, if so executes the updateList function.
 
 if (isset($_POST['list_name'])) {
     echo updateList();
 }
 function updateList()
 {
+    //Starts the database connection.
+
     include 'connectToDB.php';
+    //Prepares the statement to update the list, it then binds the parameters using PDO compliance and then redirects back to the index page.
 
     $stmt = $conn->prepare("UPDATE lists SET list_name = :list_name WHERE list_id=:list_id");
     $stmt->bindParam(':list_name', $_POST['list_name'], PDO::PARAM_STR);
