@@ -33,6 +33,13 @@ $result2 = $stmt2->fetchAll();
     <div class="container">
         <h1><?php echo $result['list_name'] ?></h1>
         <table class="table">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" onclick="filterTasks('Alles')" class="btn btn-secondary">Alle taken</button>
+                <button type="button" onclick="filterTasks('Nog niet begonnen')" class="btn btn-secondary">Nog niet begonnen</button>
+                <button type="button" onclick="filterTasks('Bezig')" class="btn btn-secondary">Bezig</button>
+                <button type="button" onclick="filterTasks('Afgemaakt')" class="btn btn-secondary">Afgemaakt</button>
+
+            </div>
             <thead>
                 <tr>
                     <th scope="col">Taken</th>
@@ -43,14 +50,13 @@ $result2 = $stmt2->fetchAll();
                 <?php
                 foreach ($result2 as $row) {
                 ?>
-
-                    <tr>
+                    <tr class="tasksTable <?php echo $row['task_status'] ?>">
                         <td><?php echo $row['task_name'] ?></td>
                         <td class="text-right">
                             <a class="btn btn-warning" href='updateTask.php?id=<?php echo $row['task_id'] ?>'>
                                 <i class=" far fa-edit"></i>
                             </a>
-                            <a class="btn btn-danger" href='deleteTask.php?id=<?php echo $row['task_id'] ?>?>'>
+                            <a class="btn btn-danger" href='deleteTask.php?id=<?php echo $row['task_id'] ?>'>
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
