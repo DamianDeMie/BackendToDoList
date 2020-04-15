@@ -11,4 +11,6 @@ $stmt2->bindParam(':list_id', $_GET['id'], PDO::PARAM_INT);
 $stmt->execute();
 $stmt2->execute();
 
+$conn = null;
+
 header('Location: ' . $_SERVER['HTTP_REFERER']);
