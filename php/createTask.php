@@ -1,7 +1,6 @@
 <?php
 //Starts the database connection.
-
-include __DIR__ . '\header.php';
+require __DIR__ . '\connectToDB.php';
 
 //Prepares and executes the statement getting the ID of the list you are currently in.
 $stmt = $conn->prepare("SELECT * FROM lists WHERE list_id=:list_id");
@@ -30,6 +29,7 @@ function createTask()
 
     header("location:showList.php?id=" .  $_POST['list_id']);
 };
+include __DIR__ . '\header.php';
 ?>
 
 <body>

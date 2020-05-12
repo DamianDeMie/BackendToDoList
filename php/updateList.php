@@ -1,7 +1,7 @@
 <?php
 //Starts the database connection.
+require __DIR__ . '\connectToDB.php';
 
-include __DIR__ . '\header.php';
 
 //Prepares and executes the statement getting the ID of the list you are currently in.
 $stmt = $conn->prepare("SELECT * FROM lists WHERE list_id=:list_id");
@@ -30,6 +30,7 @@ function updateList()
     $conn = null;
     header("location:../index.php");
 };
+include __DIR__ . '\header.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

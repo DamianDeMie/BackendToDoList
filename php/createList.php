@@ -1,7 +1,5 @@
 <?php
 
-include __DIR__ . '\header.php';
-
 //Checks if there is anything in the POST for the property list_name, if so executes the createList function.
 if (isset($_POST['list_name'])) {
     echo createList();
@@ -18,6 +16,7 @@ function createList()
 
     header("location:../index.php");
 };
+include __DIR__ . '\header.php';
 ?>
 
 

@@ -1,7 +1,3 @@
-<?php
-require __DIR__ . '\connectToDB.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

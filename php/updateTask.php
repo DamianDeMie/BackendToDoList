@@ -1,5 +1,7 @@
-<?php //Starts the database connection.
-include __DIR__ . '\header.php';
+<?php
+require __DIR__ . '\connectToDB.php';
+
+//Starts the database connection.
 
 //Prepares and executes the statement getting the ID of the task you are currently in.
 
@@ -28,6 +30,8 @@ function updateTask()
 
     header("location:showList.php?id=" .  $_POST['list_id']);
 };
+
+include __DIR__ . '\header.php';
 ?>
 
 <body>

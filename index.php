@@ -1,11 +1,8 @@
 <?php //Starts the database connection.
+require __DIR__ . '\php\connectToDB.php';
+require __DIR__ . '\php\getLists.php';
+
 include __DIR__ . '\php\header.php';
-
-
-$stmt = $conn->prepare("SELECT * FROM `lists`");
-$stmt->execute();
-$result = $stmt->fetchAll();
-$conn = null;
 ?>
 
 <body>

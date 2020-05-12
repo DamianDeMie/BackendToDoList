@@ -1,5 +1,6 @@
-<?php //Starts the database connection.
-include __DIR__ . '\header.php';
+<?php
+require __DIR__ . '\connectToDB.php';
+//Starts the database connection.
 
 //Prepares and executes the statement getting the ID of the list you are currently in.
 $stmt = $conn->prepare("SELECT `list_id`, `list_name` FROM `lists` WHERE `list_id` = :list_id");
@@ -15,8 +16,9 @@ $stmt2->execute();
 
 $result2 = $stmt2->fetchAll();
 $conn = null;
-?>
 
+include __DIR__ . '\header.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
